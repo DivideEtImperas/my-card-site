@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My-matrix-card</title>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+
+<body>
+    <!-- Холст для матричного дождя -->
+    <canvas id="matrix"></canvas>
+
+    <!-- Моя карточка -->
+    <div class="card">
+        <button class="photo-btn" id="aboutBtn">
+            <img src="/imges/photo.jpg" alt="фото" class="card-img">
+        </button>
+        <h1>Eduard Golyshev</h1>
+        <p>Welcome to the Matrix...</p>
+        <div class="links">
+            <a href="https://github.com/DivideEtImperas">GitHub</a>
+            <a href="https://t.me/tula71g">Telegram</a>
+        </div>
+    </div>
+
+    <!-- Модальное окно обо мне -->
+    <div class="modal" id="aboutModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>About me</h2>
+            <img src="imges/photo.jpg" alt="фото" class="modal-photo">
+            <p>Привет! Я начинающий веб-разработчик. Увлекаюсь созданием сайтов и изучением новых технологий.</p>
+            <p>Мои навыки: HTML, CSS, JavaScript</p>
+        </div>
+    </div>
+    <script src="js/matrix.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

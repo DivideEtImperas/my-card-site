@@ -1,0 +1,152 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh
+}
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.card {
+    background: rgba(0, 0, 0, 0.5);
+    color: #0f0;
+    /* border: 1px solid #0f0; */
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    padding: 30px;
+    text-align: center;
+    margin: 20px;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #0f0;
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.card h1:hover {
+    animation: blink 0.5s infinite alternate;
+}
+
+@keyframes blink {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0.5;
+    }
+}
+
+.photo-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.photo-btn:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 8px #0f0);
+}
+
+.card-img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    transition: all 0.5s ease;
+    border: 2px solid transparent;
+}
+
+.card-img:hover {
+
+    border-color: #0f0;
+}
+
+.photo-btn:hover .card-img {
+    border-color: #0f0;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: rgba(0, 0, 0, 0.9);
+    color: #0f0;
+    margin: 10% auto;
+    padding: 30px;
+    border: 1px solid #0f0;
+    width: 60%;
+    max-width: 500px;
+    text-align: center;
+    position: relative;
+    animation: modalOpen 0.4s;
+}
+
+@keyframes modalOpen {
+    from {
+        opacity: 0;
+        transform: rotateY(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-photo {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin: 15px 0;
+    border: 2px solid #0f0;
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 28px;
+    color: #0f0;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #fff;
+}
+
+.links a {
+    background: transparent;
+    color: #0f0;
+    border: 1px solid #0f0;
+    transition: all 0.3s ease;
+}
+
+.links a:hover {
+    background: rgba(0, 255, 0, 0.2);
+    box-shadow: 0 0 10px #0f0;
+    transform: translateY(-3px);
+}
