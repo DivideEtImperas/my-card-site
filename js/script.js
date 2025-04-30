@@ -1,3 +1,10 @@
+/**
+ * Matrix Card - интерактивная визитка
+ * @author Eduard Golyshev
+ * @version 1.0
+ * @license MIT
+ */
+
 document.addEventListener('DOMContentLoaded', function () {
     // Элементы модального окна
     const aboutBtn = document.getElementById('aboutBtn');
