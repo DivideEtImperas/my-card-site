@@ -4,39 +4,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My-matrix-card</title>
+    <title>Matrix Card</title>
     <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
-    <!-- Холст для матричного дождя -->
     <canvas id="matrix"></canvas>
 
-    <!-- Моя карточка -->
     <div class="card">
         <button class="photo-btn" id="aboutBtn">
-            <img src="imges/photo.jpg" alt="фото" class="card-img">
+            <img src="imges/photo.jpg" alt="Фото" class="card-img">
         </button>
         <h1>Eduard Golyshev</h1>
         <p>Welcome to the Matrix...</p>
         <div class="links">
-            <a href="https://github.com/DivideEtImperas">GitHub</a>
-            <a href="https://t.me/tula71g">Telegram</a>
+            <a href="https://github.com/DivideEtImperas" class="icon-btn">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://t.me/tula71g" class="icon-btn">
+                <i class="fab fa-telegram"></i>
+            </a>
         </div>
     </div>
 
-    <!-- Модальное окно обо мне -->
     <div class="modal" id="aboutModal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>About me</h2>
-            <img src="imges/photo.jpg" alt="фото" class="modal-photo">
-            <p>Привет! Я начинающий веб-разработчик. Увлекаюсь созданием сайтов и изучением новых технологий.</p>
+            <h2>About Me</h2>
+            <img src="imges/photo.jpg" alt="Фото" class="modal-photo">
+            <p>Привет! Я начинающий веб-разработчик.</p>
             <p>Мои навыки: HTML, CSS, JavaScript</p>
         </div>
     </div>
+
     <script src="js/matrix.js"></script>
     <script src="js/script.js"></script>
+    <!-- <button id="enableSound"
+        style="position: fixed; bottom: 10px; right: 10px; padding: 5px 10px; background: #0f0; color: black; border: none; z-index: 1000;">
+        🔇 Включить звуки
+    </button> -->
+    <button id="enableSound">🔇 Включить звуки</button>
 </body>
 
 </html>
