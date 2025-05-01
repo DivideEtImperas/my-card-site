@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (enableSoundBtn) {
         function updateSoundButton() {
             const isEnabled = localStorage.getItem('soundAllowed') === 'true';
-            enableSoundBtn.innerHTML = isEnabled ? '🔊 Звуки включены' : '🔇 Включить звуки';
+            enableSoundBtn.innerHTML = isEnabled ? '🔊' : '🔇';
             enableSoundBtn.classList.toggle('sound-enabled', isEnabled);
         }
 
