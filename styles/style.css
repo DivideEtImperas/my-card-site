@@ -1,3 +1,4 @@
+/* ===== Базовые стили ===== */
 body {
     margin: 0;
     overflow: hidden;
@@ -5,22 +6,28 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh
+    min-height: 100vh;
 }
 
-canvas {
+/* ===== Canvas (матричный эффект) ===== */
+#matrix {
     position: fixed;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
     z-index: -1;
 }
 
+/* ===== Типография ===== */
 h1 {
     font-size: 1.8rem;
+    margin: 0.5em 0;
 }
 
 p {
     font-size: 1rem;
+    margin: 0.5em 0;
 }
 
 @media (min-width: 768px) {
@@ -33,18 +40,20 @@ p {
     }
 }
 
+/* ===== Карточка ===== */
 .card {
     background: rgba(0, 0, 0, 0.5);
     color: #0f0;
     border-radius: 15px;
-    box-sizing: border-box;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 90%;
     max-width: 400px;
     margin: 20px auto;
     padding: 20px;
     text-align: center;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    position: relative;
+    z-index: 10;
 }
 
 @media (min-width: 768px) {
@@ -66,10 +75,7 @@ p {
     background: rgba(0, 0, 0, 0.9);
 }
 
-.card h1:hover {
-    animation: blink 0.5s infinite alternate;
-}
-
+/* ===== Анимации ===== */
 @keyframes blink {
     from {
         opacity: 1;
@@ -80,17 +86,48 @@ p {
     }
 }
 
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 5px #0f0;
+    }
+
+    100% {
+        box-shadow: 0 0 20px #0f0;
+    }
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0.8);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+@keyframes modalOpen {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== Фото в карточке ===== */
 .photo-btn {
     background: none;
     border: none;
     padding: 0;
     cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.photo-btn:hover {
-    transform: scale(1.05);
-    filter: drop-shadow(0 0 8px #0f0);
+    transition: transform 0.3s ease, filter 0.3s ease;
+    display: inline-block;
 }
 
 .card-img {
@@ -98,19 +135,21 @@ p {
     width: 150px;
     height: 150px;
     object-fit: cover;
-    transition: all 0.5s ease;
     border: 2px solid transparent;
+    transition: border-color 0.3s ease;
 }
 
+.photo-btn:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 8px #0f0);
+}
+
+.photo-btn:hover .card-img,
 .card-img:hover {
-
     border-color: #0f0;
 }
 
-.photo-btn:hover .card-img {
-    border-color: #0f0;
-}
-
+/* ===== Модальное окно ===== */
 .modal {
     display: none;
     position: fixed;
@@ -123,6 +162,7 @@ p {
     justify-content: center;
     align-items: center;
     backdrop-filter: blur(5px);
+    pointer-events: auto;
 }
 
 .modal-content {
@@ -144,18 +184,6 @@ p {
     }
 }
 
-@keyframes modalOpen {
-    from {
-        opacity: 0;
-        transform: rotateY(-50px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
 .modal-photo {
     width: 200px;
     height: 200px;
@@ -172,31 +200,18 @@ p {
     font-size: 28px;
     color: #0f0;
     cursor: pointer;
+    transition: color 0.3s ease;
 }
 
 .close:hover {
     color: #fff;
 }
 
-.links a {
-    background: transparent;
-    color: #0f0;
-    border: 1px solid #0f0;
-    transition: all 0.3s ease;
-}
-
-.links a:hover {
-    background: rgba(0, 255, 0, 0.2);
-    box-shadow: 0 0 10px #0f0;
-    transform: translateY(-3px);
-}
-
+/* ===== Иконки соцсетей ===== */
 .icon-btn {
     color: #0f0;
     font-size: 1.5rem;
     margin: 0 10px;
-    transition: transform 0.2s ease;
-    text-decoration: none;
     background: rgba(0, 0, 0, 0.3);
     width: 40px;
     height: 40px;
@@ -205,65 +220,26 @@ p {
     align-items: center;
     justify-content: center;
     border: 1px solid #0f0;
+    text-decoration: none;
+    transition: transform 0.15s ease, opacity 0.15s ease, background 0.3s ease, box-shadow 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    position: relative;
+    transform: scale(1);
 }
 
-
-
-@media (min-width: 768px) {
-    .icon-btn {
-        width: 50px;
-        height: 50px;
-        font-size: 2rem;
-        margin: 0 15px;
-    }
+.icon-btn.interacting,
+.icon-btn:active {
+    transform: scale(0.93);
+    opacity: 0.9;
 }
 
 .icon-btn:hover {
-    color: rgb(255, 255, 255);
+    color: #fff;
     background: rgba(0, 255, 0, 0.2);
     transform: translateY(-5px);
     box-shadow: 0 0 15px #0f0;
     animation: pulse 1s infinite alternate;
-}
-
-@media(hover: none) {
-    .icon-btn:hover {
-        transform: none !important;
-    }
-
-    .photo-btn:active .card-img {
-        transform: scale(0.95);
-    }
-}
-
-@keyframes pulse {
-    0% {
-        box-shadow: 0 0 5px #0f0;
-    }
-
-    100% {
-        box-shadow: 0 0 20px #0f0;
-    }
-}
-
-@keyframes click-effect {
-    0% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(0.9);
-        opacity: 0.8;
-    }
-
-    100% {
-        transform: scale(1);
-    }
-}
-
-.icon-btn:active {
-    transform: scale(0.9);
-    background: rgba(0, 255, 0, 0.3);
 }
 
 .icon-btn:hover::after {
@@ -278,21 +254,26 @@ p {
     animation: ripple 1.5s infinite;
 }
 
-@keyframes ripple {
-    0% {
-        transform: scale(0.8);
-        opacity: 1;
-    }
-
-    100% {
-        transform: scale(1.5);
-        opacity: 0;
+@media (min-width: 768px) {
+    .icon-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 2rem;
+        margin: 0 15px;
     }
 }
 
+/* ===== Адаптация для мобильных ===== */
 @media (hover: none) {
+
+    .icon-btn.interacting,
+    .icon-btn:active {
+        transform: scale(0.9);
+    }
+
     .icon-btn:hover {
-        transform: none !important;
+        transform: none;
+        animation: none;
     }
 
     .photo-btn:active .card-img {
@@ -300,25 +281,7 @@ p {
     }
 }
 
-/* Плавные переходы */
-* {
-    transition: all 0.3s ease-out;
-}
-
-/* Оптимизация для iOS */
-@supports (-webkit-touch-callout: none) {
-    body {
-        height: -webkit-fill-available;
-    }
-}
-
-/* Отключение выделения при тапе */
-.icon-btn,
-.photo-btn {
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
-}
-
+/* ===== Кнопка включения звука ===== */
 #enableSound {
     position: fixed;
     bottom: 20px;
@@ -346,26 +309,19 @@ p {
     opacity: 0.7;
 }
 
-#matrix {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
-}
-
+/* ===== Вспомогательные стили ===== */
 .no-scroll {
     overflow: hidden;
     height: 100%;
 }
 
-.modal {
-    pointer-events: auto;
-    /* Важно для кликов */
+@supports (-webkit-touch-callout: none) {
+    body {
+        height: -webkit-fill-available;
+    }
 }
 
-.icon-btn {
-    pointer-events: auto;
-    /* Разрешаем клики */
+/* Оптимизация переходов */
+* {
+    transition: color 0.3s ease, background 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
 }

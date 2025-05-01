@@ -1,7 +1,7 @@
 /**
  * Matrix Card - интерактивная визитка
  * @author Eduard Golyshev
- * @version 1.0
+ * @version 1.1
  * @license MIT
  */
 
@@ -10,16 +10,21 @@ document.addEventListener('DOMContentLoaded', function () {
     const aboutBtn = document.getElementById('aboutBtn');
     const modal = document.getElementById('aboutModal');
     const closeBtn = document.querySelector('.close');
+    const enableSoundBtn = document.getElementById('enableSound');
 
-    // Проверка элементов модального окна
+    // Проверка элементов
     if (!aboutBtn || !modal || !closeBtn) {
         console.error('Не найдены необходимые элементы для модального окна');
         return;
     }
 
+    // Определение типа устройства
+    const isTouchDevice = ('ontouchstart' in window) ||
+        (navigator.maxTouchPoints > 0) ||
+        (navigator.msMaxTouchPoints > 0);
+
     // Функция для звука (Web Audio API)
     function playBeep() {
-        // Проверяем разрешение на звук
         if (localStorage.getItem('soundAllowed') !== 'true') return;
 
         try {
@@ -32,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function () {
             osc.stop(ctx.currentTime + 0.1);
         } catch (e) {
             console.error('Web Audio error:', e);
-            // Fallback на HTML5 Audio
             try {
                 new Audio('https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3').play();
             } catch (fallbackError) {
@@ -42,17 +46,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Управление модальным окном
-    aboutBtn.addEventListener('click', function () {
-        console.log('Opening modal...');
+    function openModal() {
         modal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
-    });
+    }
 
     function closeModal() {
         modal.style.display = 'none';
         document.body.style.overflow = '';
     }
 
+    aboutBtn.addEventListener('click', openModal);
     closeBtn.addEventListener('click', closeModal);
 
     window.addEventListener('click', function (event) {
@@ -61,53 +65,85 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Обработчики для иконок
+    // Обработчики для иконок 
     document.querySelectorAll('.icon-btn').forEach(btn => {
+        let isTouchInteraction = false;
+        let interactionTimer;
+        let isAnimating = false;
+
+        // Touch-события (для мобильных)
+        btn.addEventListener('touchstart', function () {
+            if (isAnimating) return;
+            isAnimating = true;
+            isTouchInteraction = true;
+            startInteraction(this);
+        }, { passive: true });
+
+        btn.addEventListener('touchend', function (e) {
+            if (isTouchInteraction && !isAnimating) {
+                e.preventDefault();
+                endInteraction(this);
+                setTimeout(() => {
+                    window.open(this.href, '_blank');
+                    isAnimating = false;
+                }, 100);
+            }
+        }, { passive: true });
+
+        // Click-события (для десктопов)
         btn.addEventListener('click', function (e) {
+            if (isTouchInteraction || isAnimating) return;
+            isAnimating = true;
             e.preventDefault();
 
-            // Анимация
-            this.classList.add('active');
-            setTimeout(() => this.classList.remove('active'), 200);
-
-            // Звук
-            playBeep();
-
-            // Открытие ссылки
+            startInteraction(this);
             setTimeout(() => {
+                endInteraction(this);
                 window.open(this.href, '_blank');
-            }, 300);
+                isAnimating = false;
+            }, isTouchDevice ? 150 : 300);
         });
+
+        // Функции управления состоянием
+        function startInteraction(element) {
+            clearTimeout(interactionTimer);
+            element.classList.add('interacting');
+            playBeep();
+        }
+
+        function endInteraction(element) {
+            element.classList.remove('interacting');
+            isTouchInteraction = false;
+        }
     });
 
     // Управление звуком
-    const enableSoundBtn = document.getElementById('enableSound');
     if (enableSoundBtn) {
-        // Инициализация состояния
         function updateSoundButton() {
-            const isSoundAllowed = localStorage.getItem('soundAllowed') === 'true';
-            enableSoundBtn.innerHTML = isSoundAllowed ? '🔊 Звуки включены' : '🔇 Включить звуки';
-            enableSoundBtn.classList.toggle('sound-enabled', isSoundAllowed);
-
-            // Больше не скрываем кнопку полностью
-            enableSoundBtn.style.display = 'block';
+            const isEnabled = localStorage.getItem('soundAllowed') === 'true';
+            enableSoundBtn.innerHTML = isEnabled ? '🔊 Звуки включены' : '🔇 Включить звуки';
+            enableSoundBtn.classList.toggle('sound-enabled', isEnabled);
         }
 
-        // Обработчик клика
         enableSoundBtn.addEventListener('click', function () {
             const newState = localStorage.getItem('soundAllowed') !== 'true';
-            localStorage.setItem('soundAllowed', String(newState));
-
-            // Проиграть тестовый звук
-            if (newState) playBeep();
-
-            // Обновить кнопку
+            localStorage.setItem('soundAllowed', newState);
             updateSoundButton();
+            if (newState) playBeep();
         });
 
-        // Первоначальная настройка
         updateSoundButton();
     }
 
-    console.log('Скрипт инициализирован');
+    // Сброс состояний при возврате на страницу
+    document.addEventListener('visibilitychange', function () {
+        if (document.visibilityState === 'visible') {
+            document.querySelectorAll('.icon-btn').forEach(btn => {
+                btn.classList.remove('interacting', 'active');
+                btn.style.transform = '';
+            });
+        }
+    });
+
+    console.log('Скрипт инициализирован (v1.1)');
 });
