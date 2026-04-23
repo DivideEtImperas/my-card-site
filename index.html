@@ -2,46 +2,58 @@
 <html lang="ru">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matrix Card</title>
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Matrix Card</title>
+	<link rel="stylesheet" href="styles/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
-    <canvas id="matrix"></canvas>
+	<canvas id="matrix"></canvas>
 
-    <div class="card">
-        <button class="photo-btn" id="aboutBtn">
-            <img src="imges/photo.jpg" alt="Фото" class="card-img">
-        </button>
-        <h1>Eduard Golyshev</h1>
-        <p>Welcome to the Matrix...</p>
-        <div class="links">
-            <a href="https://github.com/DivideEtImperas" class="icon-btn">
-                <i class="fab fa-github"></i>
-            </a>
-            <a href="https://t.me/tula71g" class="icon-btn">
-                <i class="fab fa-telegram"></i>
-            </a>
-        </div>
-    </div>
+	<div class="card">
+		<button class="photo-btn" id="aboutBtn">
+			<img src="imges/photo.jpg" alt="Фото" class="card-img">
+		</button>
+		<h1>Эдуард Голышев</h1>
+		<p>Welcome to the Matrix...</p>
+		<div class="links">
+			<a href="https://github.com/DivideEtImperas" class="icon-btn">
+				<i class="fab fa-github"></i>
+			</a>
+			<a href="https://t.me/tula71g" class="icon-btn">
+				<i class="fab fa-telegram"></i>
+			</a>
+			<a href="https://max.ru/u/f9LHodD0cOLFZRrrNF51qeRBvCV17PXLdzssDLJwyzVgxgsnPg8B5T-D1MI" class="icon-btn">
+				<i class="max-icon"></i>
+			</a>
+		</div>
+	</div>
 
-    <div class="modal" id="aboutModal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>About Me</h2>
-            <img src="imges/photo.jpg" alt="Фото" class="modal-photo">
-            <p>Привет! Я начинающий веб-разработчик.</p>
-            <p>Мои навыки: HTML, CSS, JavaScript</p>
-        </div>
-    </div>
+	<div class="modal" id="aboutModal">
+		<div class="modal-content">
+			<span class="close">&times;</span>
+			<h2>Обо мне</h2>
+			<img src="imges/photo.jpg" alt="Фото" class="modal-photo">
+			<p>Привет! Я веб-разработчик и создаю современные, адаптивные и продающие лендинги.</p>
+			<figure class="modal-figure">
+				<figcaption>Мои клиенты получают:</figcaption>
+				<ul>
+					<li>✅ Адаптивную верстку под мобильные, планшеты и десктоп</li>
+					<li>✅ Чистый и оптимизированный HTML + CSS (Flexbox)</li>
+					<li>✅ Быструю загрузку страниц и SEO-базовую оптимизацию</li>
+				</ul>
+			</figure>
+			<p>Я помогу сделать лендинг, который привлекает клиентов и повышает конверсии.</p>
 
-    <script src="js/matrix.js"></script>
-    <script src="js/script.js"></script>
+		</div>
+	</div>
 
-    <button id="enableSound">🔇</button>
+	<script src="js/matrix.js"></script>
+	<script src="js/script.js"></script>
+
+	<button id="enableSound">🔇</button>
 </body>
 
 </html>

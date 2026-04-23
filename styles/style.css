@@ -1,327 +1,347 @@
 /* ===== Базовые стили ===== */
 body {
-    margin: 0;
-    overflow: hidden;
-    background: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+	margin: 0;
+	overflow: hidden;
+	background: black;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
 }
 
 /* ===== Canvas (матричный эффект) ===== */
 #matrix {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
 }
 
 /* ===== Типография ===== */
 h1 {
-    font-size: 1.8rem;
-    margin: 0.5em 0;
+	font-size: 1.8rem;
+	margin: 0.5em 0;
 }
 
 p {
-    font-size: 1rem;
-    margin: 0.5em 0;
+	font-size: 1rem;
+	margin: 0.5em 0;
 }
 
 @media (min-width: 768px) {
-    h1 {
-        font-size: 2.2rem;
-    }
+	h1 {
+		font-size: 2.2rem;
+	}
 
-    p {
-        font-size: 1.2rem;
-    }
+	p {
+		font-size: 1.2rem;
+	}
 }
 
 /* ===== Карточка ===== */
 .card {
-    background: rgba(0, 0, 0, 0.5);
-    color: #0f0;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    max-width: 400px;
-    margin: 20px auto;
-    padding: 20px;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-    position: relative;
-    z-index: 10;
+	background: rgba(0, 0, 0, 0.5);
+	color: #0f0;
+	border-radius: 15px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	width: 90%;
+	max-width: 400px;
+	margin: 20px auto;
+	padding: 20px;
+	text-align: center;
+	transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+	position: relative;
+	z-index: 10;
 }
 
 @media (min-width: 768px) {
-    .card {
-        width: 70%;
-        padding: 30px;
-    }
+	.card {
+		width: 70%;
+		padding: 30px;
+	}
 }
 
 @media (min-width: 1024px) {
-    .card {
-        width: 50%;
-    }
+	.card {
+		width: 50%;
+	}
 }
 
 .card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px #0f0;
-    background: rgba(0, 0, 0, 0.9);
+	transform: scale(1.05);
+	box-shadow: 0 0 20px #0f0;
+	background: rgba(0, 0, 0, 0.9);
 }
 
 /* ===== Анимации ===== */
 @keyframes blink {
-    from {
-        opacity: 1;
-    }
+	from {
+		opacity: 1;
+	}
 
-    to {
-        opacity: 0.5;
-    }
+	to {
+		opacity: 0.5;
+	}
 }
 
 @keyframes pulse {
-    0% {
-        box-shadow: 0 0 5px #0f0;
-    }
+	0% {
+		box-shadow: 0 0 5px #0f0;
+	}
 
-    100% {
-        box-shadow: 0 0 20px #0f0;
-    }
+	100% {
+		box-shadow: 0 0 20px #0f0;
+	}
 }
 
 @keyframes ripple {
-    0% {
-        transform: scale(0.8);
-        opacity: 1;
-    }
+	0% {
+		transform: scale(0.8);
+		opacity: 1;
+	}
 
-    100% {
-        transform: scale(1.5);
-        opacity: 0;
-    }
+	100% {
+		transform: scale(1.5);
+		opacity: 0;
+	}
 }
 
 @keyframes modalOpen {
-    from {
-        opacity: 0;
-        transform: translateY(-50px);
-    }
+	from {
+		opacity: 0;
+		transform: translateY(-50px);
+	}
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 
 /* ===== Фото в карточке ===== */
 .photo-btn {
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    transition: transform 0.3s ease, filter 0.3s ease;
-    display: inline-block;
+	background: none;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	transition: transform 0.3s ease, filter 0.3s ease;
+	display: inline-block;
 }
 
 .card-img {
-    border-radius: 50%;
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border: 2px solid transparent;
-    transition: border-color 0.3s ease;
+	border-radius: 50%;
+	width: 150px;
+	height: 150px;
+	object-fit: cover;
+	border: 2px solid transparent;
+	transition: border-color 0.3s ease;
 }
 
 .photo-btn:hover {
-    transform: scale(1.05);
-    filter: drop-shadow(0 0 8px #0f0);
+	transform: scale(1.05);
+	filter: drop-shadow(0 0 8px #0f0);
 }
 
 .photo-btn:hover .card-img,
 .card-img:hover {
-    border-color: #0f0;
+	border-color: #0f0;
 }
 
 /* ===== Модальное окно ===== */
 .modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-    backdrop-filter: blur(5px);
-    pointer-events: auto;
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.8);
+	z-index: 1000;
+	justify-content: center;
+	align-items: center;
+	backdrop-filter: blur(5px);
+	pointer-events: auto;
 }
 
 .modal-content {
-    background: rgba(0, 20, 0, 0.9);
-    color: #0f0;
-    margin: 10% auto;
-    padding: 20px;
-    border: 1px solid #0f0;
-    width: 90%;
-    max-width: 500px;
-    text-align: center;
-    position: relative;
-    animation: modalOpen 0.4s;
+	background: rgba(0, 20, 0, 0.9);
+	color: #0f0;
+	margin: 10% auto;
+	padding: 20px;
+	border: 1px solid #0f0;
+	max-width: 700px;
+	text-align: center;
+	position: relative;
+	animation: modalOpen 0.4s;
 }
 
+.modal-figure {
+	text-align: left;
+	font-size: 18px;
+}
+
+.modal-figure ul li {
+	list-style: none;
+	padding: 5px 0;
+}
+
+
 @media (min-width: 768px) {
-    .modal-content {
-        padding: 30px;
-    }
+	.modal-content {
+		padding: 30px;
+		
+	}
+
 }
 
 .modal-photo {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 5px;
-    margin: 15px 0;
-    border: 2px solid #0f0;
+	width: 200px;
+	height: 200px;
+	object-fit: cover;
+	border-radius: 5px;
+	margin: 15px 0;
+	border: 2px solid #0f0;
 }
 
 .close {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    font-size: 28px;
-    color: #0f0;
-    cursor: pointer;
-    transition: color 0.3s ease;
+	position: absolute;
+	top: 10px;
+	right: 20px;
+	font-size: 28px;
+	color: #0f0;
+	cursor: pointer;
+	transition: color 0.3s ease;
 }
 
 .close:hover {
-    color: #fff;
+	color: #fff;
 }
 
 /* ===== Иконки соцсетей ===== */
 .icon-btn {
-    color: #0f0;
-    font-size: 1.5rem;
-    margin: 0 10px;
-    background: rgba(0, 0, 0, 0.3);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #0f0;
-    text-decoration: none;
-    transition: transform 0.15s ease, opacity 0.15s ease, background 0.3s ease, box-shadow 0.3s ease;
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
-    position: relative;
-    transform: scale(1);
+	color: #0f0;
+	font-size: 1.5rem;
+	margin: 0 10px;
+	background: rgba(0, 0, 0, 0.3);
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid #0f0;
+	text-decoration: none;
+	transition: transform 0.15s ease, opacity 0.15s ease, background 0.3s ease, box-shadow 0.3s ease;
+	-webkit-tap-highlight-color: transparent;
+	user-select: none;
+	position: relative;
+	transform: scale(1);
+}
+
+.max-icon {
+
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+	background: url('/my-card-site/imges/max-icon.svg') center/contain no-repeat;
 }
 
 .icon-btn.interacting,
 .icon-btn:active {
-    transform: scale(0.93);
-    opacity: 0.9;
+	transform: scale(0.93);
+	opacity: 0.9;
 }
 
 .icon-btn:hover {
-    color: #fff;
-    background: rgba(0, 255, 0, 0.2);
-    transform: translateY(-5px);
-    box-shadow: 0 0 15px #0f0;
-    animation: pulse 1s infinite alternate;
+	color: #fff;
+	background: rgba(0, 255, 0, 0.2);
+	transform: translateY(-5px);
+	box-shadow: 0 0 15px #0f0;
+	animation: pulse 1s infinite alternate;
 }
 
 .icon-btn:hover::after {
-    content: "";
-    position: absolute;
-    top: -5px;
-    left: -5px;
-    right: -5px;
-    bottom: -5px;
-    border: 2px solid #0f0;
-    border-radius: 50%;
-    animation: ripple 1.5s infinite;
+	content: "";
+	position: absolute;
+	top: -5px;
+	left: -5px;
+	right: -5px;
+	bottom: -5px;
+	border: 2px solid #0f0;
+	border-radius: 50%;
+	animation: ripple 1.5s infinite;
 }
 
 @media (min-width: 768px) {
-    .icon-btn {
-        width: 50px;
-        height: 50px;
-        font-size: 2rem;
-        margin: 0 15px;
-    }
+	.icon-btn {
+		width: 50px;
+		height: 50px;
+		font-size: 2rem;
+		margin: 0 15px;
+	}
 }
 
 /* ===== Адаптация для мобильных ===== */
 @media (hover: none) {
 
-    .icon-btn.interacting,
-    .icon-btn:active {
-        transform: scale(0.9);
-    }
+	.icon-btn.interacting,
+	.icon-btn:active {
+		transform: scale(0.9);
+	}
 
-    .icon-btn:hover {
-        transform: none;
-        animation: none;
-    }
+	.icon-btn:hover {
+		transform: none;
+		animation: none;
+	}
 
-    .photo-btn:active .card-img {
-        transform: scale(0.95);
-    }
+	.photo-btn:active .card-img {
+		transform: scale(0.95);
+	}
 }
 
 /* ===== Кнопка включения звука ===== */
 #enableSound {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    padding: 8px 15px;
-    background: #0f0;
-    color: #000;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    z-index: 1000;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    opacity: 0.9;
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	padding: 8px 15px;
+	background: #0f0;
+	color: #000;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	z-index: 1000;
+	font-weight: bold;
+	transition: all 0.3s ease;
+	opacity: 0.9;
 }
 
 #enableSound:hover {
-    opacity: 1;
-    transform: scale(1.05);
-    box-shadow: 0 0 10px #0f0;
+	opacity: 1;
+	transform: scale(1.05);
+	box-shadow: 0 0 10px #0f0;
 }
 
 #enableSound.sound-enabled {
-    background: #00cc00;
-    opacity: 0.7;
+	background: #00cc00;
+	opacity: 0.7;
 }
 
 /* ===== Вспомогательные стили ===== */
 .no-scroll {
-    overflow: hidden;
-    height: 100%;
+	overflow: hidden;
+	height: 100%;
 }
 
 @supports (-webkit-touch-callout: none) {
-    body {
-        height: -webkit-fill-available;
-    }
+	body {
+		height: -webkit-fill-available;
+	}
 }
 
 /* Оптимизация переходов */
 * {
-    transition: color 0.3s ease, background 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+	transition: color 0.3s ease, background 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
 }
