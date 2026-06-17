@@ -4,56 +4,171 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Matrix Card</title>
+	<title>Эдуард Голышев | Web Developer</title>
+
 	<link rel="stylesheet" href="styles/style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
-	<canvas id="matrix"></canvas>
+	<canvas id="matrix" aria-hidden="true"></canvas>
 
-	<div class="card">
-		<button class="photo-btn" id="aboutBtn">
-			<img src="imges/photo.jpg" alt="Фото" class="card-img">
-		</button>
-		<h1>Эдуард Голышев</h1>
-		<p>Welcome to the Matrix...</p>
-		<div class="links">
-			<a href="https://github.com/DivideEtImperas" class="icon-btn">
-				<i class="fab fa-github"></i>
-			</a>
-			<a href="https://t.me/tula71g" class="icon-btn">
-				<i class="fab fa-telegram"></i>
-			</a>
-			<a href="https://max.ru/u/f9LHodD0cOLFZRrrNF51qeRBvCV17PXLdzssDLJwyzVgxgsnPg8B5T-D1MI" class="icon-btn">
-				<i class="max-icon"></i>
-			</a>
+	<header class="header">
+		<div class="container header__inner">
+			<a href="#hero" class="logo">Eduard<span>.dev</span></a>
+
+			<div class="music-player">
+				<audio id="soundtrack" src="audio/matrix-soundtrack.mp3" preload="metadata"></audio>
+
+				<button class="music-player__btn" id="prevTrackBtn" type="button" aria-label="Предыдущий трек">
+					<i class="fa-solid fa-backward-step" aria-hidden="true"></i>
+				</button>
+
+				<button class="music-player__btn music-player__btn--main" id="musicBtn" type="button"
+					aria-label="Включить музыку">
+					<i class="fa-solid fa-play"></i>
+				</button>
+
+				<button class="music-player__btn" id="nextTrackBtn" type="button" aria-label="Следующий трек">
+					<i class="fa-solid fa-forward-step" aria-hidden="true"></i>
+				</button>
+
+				<div class="music-player__info">
+					<span class="music-player__title" id="trackTitle">Track 01</span>
+					<span class="music-player__status" id="musicStatus">Пауза</span>
+				</div>
+				<div class="music-player__volume">
+					<i class="fa-solid fa-volume-high music-player__volume-icon" aria-hidden="true"></i>
+
+					<input class="music-player__range" id="volumeRange" type="range" min="0" max="1" step="0.01" value="0.6"
+						aria-label="Громкость музыки">
+				</div>
+			</div>
+
+
+			<nav class="nav" aria-label="Главная навигация">
+				<a href="#hero">Главная</a>
+				<a href="#about">Обо мне</a>
+				<a href="#works">Работы</a>
+				<a href="#contacts">Контакты</a>
+			</nav>
 		</div>
-	</div>
+	</header>
 
-	<div class="modal" id="aboutModal">
-		<div class="modal-content">
-			<span class="close">&times;</span>
-			<h2>Обо мне</h2>
-			<img src="imges/photo.jpg" alt="Фото" class="modal-photo">
-			<p>Привет! Я веб-разработчик и создаю современные, адаптивные и продающие лендинги.</p>
-			<figure class="modal-figure">
-				<figcaption>Мои клиенты получают:</figcaption>
-				<ul>
-					<li>✅ Адаптивную верстку под мобильные, планшеты и десктоп</li>
-					<li>✅ Чистый и оптимизированный HTML + CSS (Flexbox)</li>
-					<li>✅ Быструю загрузку страниц и SEO-базовую оптимизацию</li>
-				</ul>
-			</figure>
-			<p>Я помогу сделать лендинг, который привлекает клиентов и повышает конверсии.</p>
+	<main>
+		<section class="hero" id="hero">
+			<div class="container hero__inner">
+				<div class="hero__content">
+					<p class="hero__label">Welcome to the Matrix...</p>
 
+					<h1>Эдуард Голышев</h1>
+
+					<p class="hero__text">
+						Я веб-разработчик. Создаю современные, адаптивные и аккуратные сайты-визитки
+						и лендинги на HTML, CSS и JavaScript.
+					</p>
+
+					<div class="hero__actions">
+						<a href="#works" class="btn">Смотреть работы</a>
+						<a href="#contacts" class="btn btn--ghost">Связаться</a>
+					</div>
+				</div>
+
+				<div class="hero__photo-wrap">
+					<img src="img/photo.jpg" alt="Фото Эдуарда Голышева" class="hero__photo">
+				</div>
+			</div>
+		</section>
+
+		<section class="section about" id="about">
+			<div class="container">
+				<div class="section__head">
+					<p class="section__label">About me</p>
+					<h2>Обо мне</h2>
+				</div>
+
+				<div class="about__card">
+					<p>
+						Привет! Я развиваюсь в веб-разработке и делаю сайты, которые не просто красиво выглядят,
+						а помогают человеку быстро понять: кто вы, что предлагаете и как с вами связаться.
+					</p>
+
+					<div class="about__grid">
+						<div class="about__item">
+							<h3>Адаптивность</h3>
+							<p>Сайт корректно выглядит на телефоне, планшете и компьютере.</p>
+						</div>
+
+						<div class="about__item">
+							<h3>Чистая верстка</h3>
+							<p>HTML, CSS, Flexbox, Grid и понятная структура проекта.</p>
+						</div>
+
+						<div class="about__item">
+							<h3>Стиль</h3>
+							<p>Люблю тёмные интерфейсы, неон и атмосферу цифрового будущего.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section works" id="works">
+			<div class="container">
+				<div class="section__head">
+					<p class="section__label">My works</p>
+					<h2>Мои работы</h2>
+				</div>
+
+				<div class="works__grid">
+					<article class="work-card">
+						<h3>Landing Page</h3>
+						<p>Адаптивный лендинг для специалиста или малого бизнеса.</p>
+						<a href="#" class="work-card__link">Скоро будет ссылка</a>
+					</article>
+
+					<article class="work-card">
+						<h3>Сайт-визитка</h3>
+						<p>Мини-сайт с информацией, контактами и презентацией услуг.</p>
+						<a href="#" class="work-card__link">Скоро будет ссылка</a>
+					</article>
+
+					<article class="work-card">
+						<h3>Matrix Card</h3>
+						<p>Интерактивная карточка профиля в стиле Matrix.</p>
+						<a href="#" class="work-card__link">Скоро будет ссылка</a>
+					</article>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="footer" id="contacts">
+		<div class="container footer__inner">
+			<div>
+				<h2>Контакты</h2>
+				<p>Готов обсудить сайт, лендинг или идею. Связь открыта, Я уже в сети.</p>
+			</div>
+
+			<div class="links">
+				<a href="https://github.com/DivideEtImperas" class="icon-btn" target="_blank" aria-label="GitHub">
+					<i class="fab fa-github" aria-hidden="true"></i>
+				</a>
+
+				<a href="https://t.me/tula71g" class="icon-btn" target="_blank" aria-label="Telegram">
+					<i class="fab fa-telegram" aria-hidden="true"></i>
+				</a>
+
+				<a href="https://max.ru/u/f9LHodD0cOLFZRrrNF51qeRBvCV17PXLdzssDLJwyzVgxgsnPg8B5T-D1MI" class="icon-btn"
+					target="_blank" aria-label="Max">
+					<i class="max-icon" aria-hidden="true"></i>
+				</a>
+			</div>
 		</div>
-	</div>
+	</footer>
 
 	<script src="js/matrix.js"></script>
 	<script src="js/script.js"></script>
-
-	<button id="enableSound">🔇</button>
 </body>
 
 </html>
