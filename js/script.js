@@ -1,14 +1,13 @@
+'use strict';
+
 /**
  * Matrix Portfolio - интерактивная визитка
  * @author Eduard Golyshev
- * @version 2.1
+ * @version 2.2
  */
 
 document.addEventListener('DOMContentLoaded', function () {
-	// ===== Основные элементы =====
-	const enableSoundBtn = document.getElementById('enableSound');
-
-	// ===== Элементы музыкального плеера =====
+	// ===== Elements =====
 	const soundtrack = document.getElementById('soundtrack');
 	const musicBtn = document.getElementById('musicBtn');
 	const prevTrackBtn = document.getElementById('prevTrackBtn');
@@ -18,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	const volumeRange = document.getElementById('volumeRange');
 	const volumeIcon = document.querySelector('.music-player__volume-icon');
 
-	// ===== Настройки треков =====
+	// ===== Tracks =====
 	const tracks = [
 		{
 			title: 'Matrix Track 01',
@@ -57,19 +56,19 @@ document.addEventListener('DOMContentLoaded', function () {
 			src: 'audio/deftones-my-own-summer-shove-it.mp3'
 		},
 		{
-			title: 'Matrix Track 010',
+			title: 'Matrix Track 10',
 			src: 'audio/hive-ultrasonic-sound.mp3'
 		},
 		{
-			title: 'Matrix Track 011',
+			title: 'Matrix Track 11',
 			src: 'audio/monster-magnet-look-to-your-orb-for-the-warning.mp3'
 		},
 		{
-			title: 'Matrix Track 012',
+			title: 'Matrix Track 12',
 			src: 'audio/rammstein-du-hast.mp3'
 		},
 		{
-			title: 'Matrix Track 013',
+			title: 'Matrix Track 13',
 			src: 'audio/rage-against-the-machine-wake-up.mp3'
 		}
 	];
@@ -77,31 +76,29 @@ document.addEventListener('DOMContentLoaded', function () {
 	let currentTrackIndex = 0;
 	const DEFAULT_VOLUME = 0.6;
 
-	// ===== Определение устройства =====
-	const isTouchDevice = ('ontouchstart' in window) ||
-		(navigator.maxTouchPoints > 0) ||
-		(navigator.msMaxTouchPoints > 0);
-
-	// ===== Короткий звук клика по иконкам =====
 	function playBeep() {
 		if (localStorage.getItem('soundAllowed') !== 'true') return;
 
 		try {
-			const ctx = new (window.AudioContext || window.webkitAudioContext)();
-			const osc = ctx.createOscillator();
+			const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+			const oscillator = audioContext.createOscillator();
+			const gainNode = audioContext.createGain();
 
-			osc.type = 'sine';
-			osc.frequency.value = 800;
-			osc.connect(ctx.destination);
+			oscillator.type = 'sine';
+			oscillator.frequency.value = 800;
 
-			osc.start();
-			osc.stop(ctx.currentTime + 0.1);
+			gainNode.gain.value = 0.04;
+
+			oscillator.connect(gainNode);
+			gainNode.connect(audioContext.destination);
+
+			oscillator.start();
+			oscillator.stop(audioContext.currentTime + 0.08);
 		} catch (error) {
 			console.error('Web Audio error:', error);
 		}
 	}
 
-	// ===== Обновление интерфейса плеера =====
 	function updatePlayerUI(isPlaying = false) {
 		if (!soundtrack || !musicBtn || !musicStatus || !trackTitle) return;
 
@@ -109,9 +106,10 @@ document.addEventListener('DOMContentLoaded', function () {
 		const icon = musicBtn.querySelector('i');
 
 		trackTitle.textContent = currentTrack.title;
-		musicStatus.textContent = isPlaying ? 'playing' : 'paused';
+		musicStatus.textContent = isPlaying ? 'Играет' : 'Пауза';
 
 		musicBtn.classList.toggle('is-playing', isPlaying);
+		musicBtn.setAttribute('aria-label', isPlaying ? 'Поставить музыку на паузу' : 'Включить музыку');
 
 		if (icon) {
 			icon.classList.toggle('fa-play', !isPlaying);
@@ -119,19 +117,22 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	}
 
-	// ===== Загрузка трека =====
+	function normalizeTrackIndex(index) {
+		if (index < 0) {
+			return tracks.length - 1;
+		}
+
+		if (index >= tracks.length) {
+			return 0;
+		}
+
+		return index;
+	}
+
 	function loadTrack(index) {
 		if (!soundtrack || tracks.length === 0) return;
 
-		currentTrackIndex = index;
-
-		if (currentTrackIndex < 0) {
-			currentTrackIndex = tracks.length - 1;
-		}
-
-		if (currentTrackIndex >= tracks.length) {
-			currentTrackIndex = 0;
-		}
+		currentTrackIndex = normalizeTrackIndex(index);
 
 		soundtrack.src = tracks[currentTrackIndex].src;
 		soundtrack.load();
@@ -139,23 +140,23 @@ document.addEventListener('DOMContentLoaded', function () {
 		updatePlayerUI(false);
 	}
 
-	// ===== Воспроизведение =====
 	async function playTrack() {
 		if (!soundtrack) return;
 
 		try {
 			await soundtrack.play();
+
+			localStorage.setItem('soundAllowed', 'true');
 			updatePlayerUI(true);
 		} catch (error) {
 			console.error('Audio play error:', error);
 
 			if (musicStatus) {
-				musicStatus.textContent = 'blocked';
+				musicStatus.textContent = 'Заблокировано';
 			}
 		}
 	}
 
-	// ===== Пауза =====
 	function pauseTrack() {
 		if (!soundtrack) return;
 
@@ -163,7 +164,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		updatePlayerUI(false);
 	}
 
-	// ===== Play / Pause =====
 	async function togglePlay() {
 		if (!soundtrack) return;
 
@@ -174,7 +174,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	}
 
-	// ===== Следующий трек =====
 	async function nextTrack() {
 		if (!soundtrack) return;
 
@@ -187,7 +186,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	}
 
-	// ===== Предыдущий трек =====
 	async function prevTrack() {
 		if (!soundtrack) return;
 
@@ -200,7 +198,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	}
 
-	// ===== Иконка громкости =====
 	function updateVolumeIcon(volume) {
 		if (!volumeIcon) return;
 
@@ -219,7 +216,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	}
 
-	// ===== Изменение громкости =====
 	function changeVolume() {
 		if (!soundtrack || !volumeRange) return;
 
@@ -231,15 +227,18 @@ document.addEventListener('DOMContentLoaded', function () {
 		updateVolumeIcon(volume);
 	}
 
-	// ===== Инициализация музыкального плеера =====
-	if (
-		soundtrack &&
-		musicBtn &&
-		prevTrackBtn &&
-		nextTrackBtn &&
-		musicStatus &&
-		trackTitle
-	) {
+	function initMusicPlayer() {
+		if (
+			!soundtrack ||
+			!musicBtn ||
+			!prevTrackBtn ||
+			!nextTrackBtn ||
+			!musicStatus ||
+			!trackTitle
+		) {
+			return;
+		}
+
 		loadTrack(currentTrackIndex);
 
 		const savedVolume = localStorage.getItem('musicVolume');
@@ -260,66 +259,26 @@ document.addEventListener('DOMContentLoaded', function () {
 		soundtrack.addEventListener('ended', nextTrack);
 	}
 
-	// ===== Обработчики для иконок соцсетей =====
-	document.querySelectorAll('.icon-btn').forEach(btn => {
-		let isTouchInteraction = false;
-		let isAnimating = false;
-		let interactionTimer;
-
-		btn.addEventListener('touchstart', function () {
-			if (isAnimating) return;
-
-			isAnimating = true;
-			isTouchInteraction = true;
-
-			startInteraction(this);
-		}, { passive: true });
-
-		btn.addEventListener('touchend', function () {
-			endInteraction(this);
-
-			setTimeout(() => {
-				window.open(this.href, '_blank');
-				isAnimating = false;
-			}, 120);
-		}, { passive: true });
-
-		btn.addEventListener('click', function (event) {
-			if (isTouchInteraction || isAnimating) return;
-
-			event.preventDefault();
-			isAnimating = true;
-
-			startInteraction(this);
-
-			setTimeout(() => {
-				endInteraction(this);
-				window.open(this.href, '_blank');
-				isAnimating = false;
-			}, isTouchDevice ? 150 : 300);
+	function initSocialLinks() {
+		document.querySelectorAll('.icon-btn').forEach(link => {
+			link.addEventListener('click', playBeep);
 		});
+	}
 
-		function startInteraction(element) {
-			clearTimeout(interactionTimer);
-			element.classList.add('interacting');
-			playBeep();
-		}
+	function resetAnimationsOnReturn() {
+		document.addEventListener('visibilitychange', function () {
+			if (document.visibilityState === 'visible') {
+				document.querySelectorAll('.icon-btn').forEach(link => {
+					link.classList.remove('interacting', 'active');
+					link.style.transform = '';
+				});
+			}
+		});
+	}
 
-		function endInteraction(element) {
-			element.classList.remove('interacting');
-			isTouchInteraction = false;
-		}
-	});
+	initMusicPlayer();
+	initSocialLinks();
+	resetAnimationsOnReturn();
 
-	// ===== Сброс анимаций при возврате на страницу =====
-	document.addEventListener('visibilitychange', function () {
-		if (document.visibilityState === 'visible') {
-			document.querySelectorAll('.icon-btn').forEach(btn => {
-				btn.classList.remove('interacting', 'active');
-				btn.style.transform = '';
-			});
-		}
-	});
-
-	console.log('Matrix Portfolio initialized v2.1');
+	console.log('Matrix Portfolio initialized v2.2');
 });

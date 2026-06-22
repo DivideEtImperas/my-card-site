@@ -4,7 +4,10 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 	<title>Эдуард Голышев | Web Developer</title>
+	<meta name="description"
+		content="Портфолио Эдуарда Голышева. Веб-разработка, адаптивная верстка, сайты-визитки и лендинги на HTML, CSS и JavaScript.">
 
 	<link rel="stylesheet" href="styles/style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -15,10 +18,10 @@
 
 	<header class="header">
 		<div class="container header__inner">
-			<a href="#hero" class="logo">Eduard<span>.dev</span></a>
+			<a href="#hero" class="logo" aria-label="На главную секцию">Eduard<span>.dev</span></a>
 
-			<div class="music-player">
-				<audio id="soundtrack" src="audio/matrix-soundtrack.mp3" preload="metadata"></audio>
+			<div class="music-player" aria-label="Музыкальный плеер">
+				<audio id="soundtrack" preload="metadata"></audio>
 
 				<button class="music-player__btn" id="prevTrackBtn" type="button" aria-label="Предыдущий трек">
 					<i class="fa-solid fa-backward-step" aria-hidden="true"></i>
@@ -26,7 +29,7 @@
 
 				<button class="music-player__btn music-player__btn--main" id="musicBtn" type="button"
 					aria-label="Включить музыку">
-					<i class="fa-solid fa-play"></i>
+					<i class="fa-solid fa-play" aria-hidden="true"></i>
 				</button>
 
 				<button class="music-player__btn" id="nextTrackBtn" type="button" aria-label="Следующий трек">
@@ -34,17 +37,17 @@
 				</button>
 
 				<div class="music-player__info">
-					<span class="music-player__title" id="trackTitle">Track 01</span>
+					<span class="music-player__title" id="trackTitle">Matrix Track 01</span>
 					<span class="music-player__status" id="musicStatus">Пауза</span>
 				</div>
+
 				<div class="music-player__volume">
 					<i class="fa-solid fa-volume-high music-player__volume-icon" aria-hidden="true"></i>
 
-					<input class="music-player__range" id="volumeRange" type="range" min="0" max="1" step="0.01" value="0.6"
-						aria-label="Громкость музыки">
+					<input class="music-player__range" id="volumeRange" type="range" min="0" max="1" step="0.01"
+						value="0.6" aria-label="Громкость музыки">
 				</div>
 			</div>
-
 
 			<nav class="nav" aria-label="Главная навигация">
 				<a href="#hero">Главная</a>
@@ -94,20 +97,20 @@
 					</p>
 
 					<div class="about__grid">
-						<div class="about__item">
+						<article class="about__item">
 							<h3>Адаптивность</h3>
 							<p>Сайт корректно выглядит на телефоне, планшете и компьютере.</p>
-						</div>
+						</article>
 
-						<div class="about__item">
+						<article class="about__item">
 							<h3>Чистая верстка</h3>
 							<p>HTML, CSS, Flexbox, Grid и понятная структура проекта.</p>
-						</div>
+						</article>
 
-						<div class="about__item">
+						<article class="about__item">
 							<h3>Стиль</h3>
 							<p>Люблю тёмные интерфейсы, неон и атмосферу цифрового будущего.</p>
-						</div>
+						</article>
 					</div>
 				</div>
 			</div>
@@ -124,19 +127,19 @@
 					<article class="work-card">
 						<h3>Landing Page</h3>
 						<p>Адаптивный лендинг для специалиста или малого бизнеса.</p>
-						<a href="#" class="work-card__link">Скоро будет ссылка</a>
+						<span class="work-card__link work-card__link--disabled">Скоро будет ссылка</span>
 					</article>
 
 					<article class="work-card">
 						<h3>Сайт-визитка</h3>
 						<p>Мини-сайт с информацией, контактами и презентацией услуг.</p>
-						<a href="#" class="work-card__link">Скоро будет ссылка</a>
+						<span class="work-card__link work-card__link--disabled">Скоро будет ссылка</span>
 					</article>
 
 					<article class="work-card">
 						<h3>Matrix Card</h3>
 						<p>Интерактивная карточка профиля в стиле Matrix.</p>
-						<a href="#" class="work-card__link">Скоро будет ссылка</a>
+						<span class="work-card__link work-card__link--disabled">Скоро будет ссылка</span>
 					</article>
 				</div>
 			</div>
@@ -145,25 +148,27 @@
 
 	<footer class="footer" id="contacts">
 		<div class="container footer__inner">
-			<div>
-				<h2>Контакты</h2>
-				<p>Готов обсудить сайт, лендинг или идею. Связь открыта, Я уже в сети.</p>
-			</div>
+			<section class="footer__contacts" aria-labelledby="contacts-title">
+				<h2 id="contacts-title">Контакты</h2>
+				<p>Готов обсудить сайт, лендинг или идею. Связь открыта, я уже в сети.</p>
+			</section>
 
-			<div class="links">
-				<a href="https://github.com/DivideEtImperas" class="icon-btn" target="_blank" aria-label="GitHub">
+			<address class="links" aria-label="Ссылки для связи">
+				<a href="https://github.com/DivideEtImperas" class="icon-btn" target="_blank" rel="noopener noreferrer"
+					aria-label="GitHub">
 					<i class="fab fa-github" aria-hidden="true"></i>
 				</a>
 
-				<a href="https://t.me/tula71g" class="icon-btn" target="_blank" aria-label="Telegram">
+				<a href="https://t.me/tula71g" class="icon-btn" target="_blank" rel="noopener noreferrer"
+					aria-label="Telegram">
 					<i class="fab fa-telegram" aria-hidden="true"></i>
 				</a>
 
-				<a href="https://max.ru/u/f9LHodD0cOLFZRrrNF51qeRBvCV17PXLdzssDLJwyzVgxgsnPg8B5T-D1MI" class="icon-btn"
-					target="_blank" aria-label="Max">
+				<a href="https://max.ru/u/f9LHodD0cOLFZRrrNF51qeRBvCV17PXLdzssDLJwyzVgxgsnPg8B5T-D1MI"
+					class="icon-btn" target="_blank" rel="noopener noreferrer" aria-label="Max">
 					<i class="max-icon" aria-hidden="true"></i>
 				</a>
-			</div>
+			</address>
 		</div>
 	</footer>
 
