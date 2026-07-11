@@ -593,7 +593,7 @@ p {
 .work-card__link--disabled {
 	opacity: 0.7;
 	cursor: default;
-	pointer-events: none;
+	pointer-events: painted;
 }
 
 /* ===== Footer ===== */
